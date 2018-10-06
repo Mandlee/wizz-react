@@ -1,5 +1,9 @@
 import React from 'react';
 
+import 'react-dates/initialize';
+import 'react-dates/lib/css/_datepicker.css';
+import {DateRangePicker} from 'react-dates';
+
 class SearchFlight extends React.Component {
 
     constructor(props) {
@@ -8,7 +12,9 @@ class SearchFlight extends React.Component {
         this.state = {
             stations: {},
             connectedStations: {},
-            currentValue: 'default'
+            currentValue: 'default',
+            startDate: null,
+            endDate: null
         };
 
         this.handleOriginStationChange = this.handleOriginStationChange.bind(this);
@@ -16,14 +22,14 @@ class SearchFlight extends React.Component {
 
 
     searchDepartureStation = React.createRef();
-    // searchArrivalStation = React.createRef();
+    searchArrivalStation = React.createRef();
 
     searchFlight = (event) => {
         event.preventDefault();
         const departureStation = this.searchDepartureStation.current.value;
-        const arrivalStation = null; //this.searchArrivalStation.current.value;
+        const arrivalStation = this.searchArrivalStation.current.value;
         console.log(departureStation);
-        this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}`);
+        this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}/${this.state.startDate.format('YYYY-MM-DD')}`);
     };
 
     handleOriginStationChange(event) {
@@ -55,7 +61,7 @@ class SearchFlight extends React.Component {
 
     renderStationsOption = (item) => {
         return (
-            <option value={item.iata} key={item.iata}>{item.shortName || item.iata}</option>
+            <option value={item.iata} key={item.iata}>{item.shortName}</option>
         );
     };
 
@@ -86,17 +92,27 @@ class SearchFlight extends React.Component {
                         )}
                     </select>
                     <label htmlFor="destinationStation">Destination</label>
-                    <select id="originStation" value={this.state.value} onChange={this.handleChange2}
-                            ref={this.searchDepartureStation}>
+                    <select id="originStation" value={this.state.value2} onChange={this.handleChange2}
+                            ref={this.searchArrivalStation}>
                         <option value="destination" key="destination">Choose your destination station</option>
                         {Object.keys(this.state.connectedStations).map(key =>
                             this.renderConnectedStationsOption(this.state.connectedStations[key])
                         )}
                     </select>
-                    Departure
-                    <input type="text" placeholder="Departure"/>
-                    Return
-                    <input type="text" placeholder="Return"/>
+                    <DateRangePicker
+                        startDateId="startDateId"
+                        endDateId="endDateId"
+                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                        onDatesChange={({startDate, endDate}) => this.setState({startDate, endDate})}
+                        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                        onFocusChange={focusedInput => this.setState({focusedInput})} // PropTypes.func.isRequired,
+                    />
+
+                    {/*Departure*/}
+                    {/*<input type="text" placeholder="Departure"/>*/}
+                    {/*Return*/}
+                    {/*<input type="text" placeholder="Return"/>*/}
                     <button type="submit" className="button button--primary button--medium">Search</button>
                 </form>
             </div>
