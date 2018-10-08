@@ -12,9 +12,27 @@ class Booking extends Component {
 
         this.state = {
             flights: {},
+            flightsReturn: {},
+            ticketOrigin: {},
+            ticketReturn: {}
         };
-
     }
+
+    selectFlightReturns = flightsReturn => {
+        this.setState({flightsReturn})
+    };
+
+    addTicketOrigin = ticketOrigin => {
+        this.setState({ticketOrigin});
+    };
+
+    addTicketReturn = ticketReturn => {
+        this.setState({ticketReturn});
+    };
+
+    getReturnFlights = () => {
+        return this.state.flightsReturn;
+    };
 
     componentDidMount() {
         const {originStation, destinationStation, departureDate} = this.props.match.params;
@@ -34,7 +52,12 @@ class Booking extends Component {
             <div className="booking">
                 <div className="booking-container">
                     <LeftPanel/>
-                    <BookingFlight flights={this.state.flights}/>
+                    <BookingFlight flights={this.state.flights}
+                                   addTicketOrigin={this.addTicketOrigin}
+                                   addTicketRetutn={this.addTicketReturn}
+                                   selectFlightReturns={this.selectFlightReturns}
+                                   getReturnFlights={this.getReturnFlights}
+                                   {...this.props}/>
                 </div>
             </div>
         );
