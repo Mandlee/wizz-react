@@ -25,14 +25,16 @@
     text-decoration: underline;
   }
 
-  &--price {
-    border: 2px solid $pink;
-    border-radius: 3px;
-  }
-
   &--medium {
     min-width: 150px;
     padding: 15px 20px;
     font-size: 14px;
+  }
+
+  &--price {
+    border: 2px solid $pink;
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 20px;
   }
 }

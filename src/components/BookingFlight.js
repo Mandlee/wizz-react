@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {SingleDatePicker} from "react-dates";
 import {searchTicket} from '../api';
+import {priceEuro} from "../helper";
 
 class BookingFlight extends React.Component {
 
@@ -20,12 +21,15 @@ class BookingFlight extends React.Component {
     renderFlight = (key) => {
         const flight = this.props.flights[key];
         return (
-            <div key={flight.flightNumber}>
-                {moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}
+            <div key={flight.flightNumber} className="price-box-container">
+                <div
+                    className="price-box">{moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}</div>
                 {Object.keys(flight.fares).map((fareKey) => {
-                    return <button className="button button--medium button--price"
-                                   onClick={(e) => this.handleClick(flight.fares[fareKey])}
-                                   key={flight.fares[fareKey].fareSellKey}>{flight.fares[fareKey].price}</button>
+                    return <div className="price-box">
+                        <button className="button button--medium button--price"
+                                onClick={(e) => this.handleClick('originTicket', flight.fares[fareKey])}
+                                key={flight.fares[fareKey].fareSellKey}>{priceEuro(flight.fares[fareKey].price)}</button>
+                    </div>
                 })}
             </div>
         );
@@ -39,16 +43,16 @@ class BookingFlight extends React.Component {
                 {moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}
                 {Object.keys(flight.fares).map((fareKey) => {
                     return <button className="button button--medium button--price"
-                                   onClick={(e) => this.handleClick(flight.fares[fareKey])}
-                                   key={flight.fares[fareKey].fareSellKey}>{flight.fares[fareKey].price}</button>
+                                   onClick={(e) => this.handleClick('returnTicket', flight.fares[fareKey])}
+                                   key={flight.fares[fareKey].fareSellKey}>{priceEuro(flight.fares[fareKey].price)}</button>
                 })}
             </div>
         );
     };
 
-    handleClick(item) {
-        console.log(item);
-        this.props.addTicketOrigin(item)
+    handleClick(key, item) {
+        console.log('handleClick', key, item);
+        this.props.addTicket(key, item)
     }
 
     isOutsideRange(day) {
@@ -84,10 +88,18 @@ class BookingFlight extends React.Component {
                     </div>
                     <div>{moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}
                     </div>
-                    <div>
-                        {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
+                    <div className="price-box-container">
+                        <div className="price-box"></div>
+                        <div className="price-box">Basic</div>
+                        <div className="price-box">Standard</div>
+                        <div className="price-box">Plus</div>
                     </div>
+                    {/*<div>*/}
+                        {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
+                    {/*</div>*/}
                 </div>
+
+
                 <div className="card">
                     Add Return flights
                     <div>

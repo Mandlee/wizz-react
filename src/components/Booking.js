@@ -10,8 +10,7 @@ class Booking extends Component {
         this.state = {
             flights: {},
             flightsReturn: {},
-            ticketOrigin: {},
-            ticketReturn: {}
+            tickets: {}
         };
     }
 
@@ -19,12 +18,10 @@ class Booking extends Component {
         this.setState({flightsReturn})
     };
 
-    addTicketOrigin = ticketOrigin => {
-        this.setState({ticketOrigin});
-    };
-
-    addTicketReturn = ticketReturn => {
-        this.setState({ticketReturn});
+    addTicket = (key, ticket) => {
+        const tickets = {...this.state.tickets};
+        tickets[key] = ticket;
+        this.setState({tickets});
     };
 
     getReturnFlights = () => {
@@ -48,10 +45,9 @@ class Booking extends Component {
         return (
             <div className="booking">
                 <div className="booking-container">
-                    <LeftPanel/>
+                    <LeftPanel tickets={this.state.tickets}/>
                     <BookingFlight flights={this.state.flights}
-                                   addTicketOrigin={this.addTicketOrigin}
-                                   addTicketRetutn={this.addTicketReturn}
+                                   addTicket={this.addTicket}
                                    selectFlightReturns={this.selectFlightReturns}
                                    getReturnFlights={this.getReturnFlights}
                                    {...this.props}/>

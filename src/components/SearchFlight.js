@@ -42,8 +42,19 @@ class SearchFlight extends React.Component {
 
     handleOriginStationChange(event) {
         console.log(event.target.value);
-        const originStationKey = event.target.value;
+        const origin = event.target.value;
 
+        this.updateConnectedStations(origin);
+
+        //set state connectedStations
+        this.setState({origin});
+    }
+
+    handleDestinationStationChange(event) {
+        this.setState({destination: event.target.value});
+    }
+
+    updateConnectedStations(originStationKey) {
         //search station connections
         const originStation = this.state.stations.find((element) => {
             return element.iata === originStationKey;
@@ -52,12 +63,8 @@ class SearchFlight extends React.Component {
         //copy connections
         const connectedStations = {...originStation.connections};
 
-        //set state connectedStations
-        this.setState({connectedStations, origin: originStationKey});
-    }
-
-    handleDestinationStationChange(event) {
-        this.setState({destination: event.target.value});
+        //set state
+        this.setState({connectedStations});
     }
 
     componentDidMount() {
@@ -68,10 +75,14 @@ class SearchFlight extends React.Component {
 
             if (localStorageRef) {
                 const localStorageState = JSON.parse(localStorageRef);
+
+                this.updateConnectedStations(localStorageState.origin);
+
                 this.setState({
                     origin: localStorageState.origin,
-                    destination: localStorageState.destination, //TODO connected stations
-                    startDate: moment(JSON.parse(localStorageRef).startDate)
+                    destination: localStorageState.destination,
+                    startDate: moment(JSON.parse(localStorageRef).startDate),
+                    endDate: null//moment(JSON.parse(localStorageRef).endDate)
                 })
             }
         });

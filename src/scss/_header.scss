@@ -1,5 +1,15 @@
 .header {
   background: $dark_blue;
   color: $light_text;
-  //height: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+
+  &__title {
+    display: inline-block;
+  }
+
+  &__logo {
+    margin: 0 25px;
+  }
 }
