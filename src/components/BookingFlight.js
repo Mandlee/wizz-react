@@ -1,5 +1,5 @@
 import React from 'react';
-import dayjs from 'dayjs';
+import moment from 'moment';
 import {SingleDatePicker} from "react-dates";
 import {searchTicket} from '../api';
 
@@ -21,7 +21,7 @@ class BookingFlight extends React.Component {
         const flight = this.props.flights[key];
         return (
             <div key={flight.flightNumber}>
-                {dayjs(flight.departure).format(`hh:mm`)} - {dayjs(flight.arrival).format(`hh:mm`)}
+                {moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}
                 {Object.keys(flight.fares).map((fareKey) => {
                     return <button className="button button--medium button--price"
                                    onClick={(e) => this.handleClick(flight.fares[fareKey])}
@@ -36,7 +36,7 @@ class BookingFlight extends React.Component {
         console.log(flight);
         return (
             <div key={flight.flightNumber}>
-                {dayjs(flight.departure).format(`hh:mm`)} - {dayjs(flight.arrival).format(`hh:mm`)}
+                {moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}
                 {Object.keys(flight.fares).map((fareKey) => {
                     return <button className="button button--medium button--price"
                                    onClick={(e) => this.handleClick(flight.fares[fareKey])}
@@ -52,15 +52,13 @@ class BookingFlight extends React.Component {
     }
 
     isOutsideRange(day) {
-        //TODO
-        //moment isSameOrAfter
-        const firstReturnTicket = dayjs(this.props.match.params.departureDate).add(1, 'day');
-        return !dayjs(day).isAfter(firstReturnTicket);
+        const firstReturnTicket = moment(this.props.match.params.departureDate).add(1, 'day');
+        return !moment(day).isAfter(firstReturnTicket);
     }
 
     setReturnDate(date) {
         this.setState({date});
-        console.log(date.format('YYYY-MM-DD'));
+        this.props.history.push(date.format('YYYY-MM-DD'));
         searchTicket(this.props.match.params.destinationStation, this.props.match.params.originStation, date.format('YYYY-MM-DD'))
             .then((data) => {
                 console.log(data);
@@ -84,7 +82,7 @@ class BookingFlight extends React.Component {
                 <div className="card">
                     <div>Outbound
                     </div>
-                    <div>{dayjs(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}
+                    <div>{moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}
                     </div>
                     <div>
                         {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
@@ -103,7 +101,7 @@ class BookingFlight extends React.Component {
                         />
                     </div>
                     <div>
-                        {dayjs(this.state.date).format(`dddd, D MMMM YYYY`)}
+                        {moment(this.state.date).format(`dddd, D MMMM YYYY`)}
                     </div>
                     <div>
                         {Object.keys(this.props.getReturnFlights()).map(key => this.renderReturnFlight(key))}

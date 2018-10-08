@@ -3,6 +3,8 @@ import React from 'react';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import {DateRangePicker} from 'react-dates';
+import moment from 'moment';
+import {getStations} from "../api";
 
 class SearchFlight extends React.Component {
 
@@ -12,12 +14,15 @@ class SearchFlight extends React.Component {
         this.state = {
             stations: {},
             connectedStations: {},
-            currentValue: 'default',
+            origin: {},
+            destination: {},
             startDate: null,
-            endDate: null
+            endDate: null,
+            errors: {}
         };
 
         this.handleOriginStationChange = this.handleOriginStationChange.bind(this);
+        this.handleDestinationStationChange = this.handleDestinationStationChange.bind(this);
     }
 
 
@@ -26,10 +31,13 @@ class SearchFlight extends React.Component {
 
     searchFlight = (event) => {
         event.preventDefault();
-        const departureStation = this.searchDepartureStation.current.value;
-        const arrivalStation = this.searchArrivalStation.current.value;
-        console.log(departureStation);
-        this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}/${this.state.startDate.format('YYYY-MM-DD')}`);
+
+        if (this.isValidForm()) {
+            const departureStation = this.searchDepartureStation.current.value;
+            const arrivalStation = this.searchArrivalStation.current.value;
+            console.log(departureStation);
+            this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}/${this.state.startDate.format('YYYY-MM-DD')}/${this.state.endDate ? this.state.endDate.format('YYYY-MM-DD') : null}`);
+        }
     };
 
     handleOriginStationChange(event) {
@@ -45,18 +53,41 @@ class SearchFlight extends React.Component {
         const connectedStations = {...originStation.connections};
 
         //set state connectedStations
-        this.setState({connectedStations});
+        this.setState({connectedStations, origin: originStationKey});
+    }
+
+    handleDestinationStationChange(event) {
+        this.setState({destination: event.target.value});
     }
 
     componentDidMount() {
-        fetch(`https://mock-air.herokuapp.com/asset/stations`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({stations: data})
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
+        const localStorageRef = localStorage.getItem('lastSearch');
+
+        getStations().then((stations) => {
+            this.setState({stations});
+
+            if (localStorageRef) {
+                const localStorageState = JSON.parse(localStorageRef);
+                this.setState({
+                    origin: localStorageState.origin,
+                    destination: localStorageState.destination, //TODO connected stations
+                    startDate: moment(JSON.parse(localStorageRef).startDate)
+                })
+            }
+        });
+    }
+
+    componentDidUpdate() {
+        const savedItem = {
+            origin: this.searchDepartureStation.current.value,
+            destination: this.searchArrivalStation.current.value,
+            startDate: this.state.startDate,
+            endDate: this.state.endDate
+        };
+        localStorage.setItem(
+            'lastSearch',
+            JSON.stringify(savedItem)
+        );
     }
 
     renderStationsOption = (item) => {
@@ -78,27 +109,58 @@ class SearchFlight extends React.Component {
         return station.shortName;
     };
 
+    isValidForm() {
+        let errors = {};
+        let isValidForm = true;
+
+        // Not select origin station
+        if (this.searchDepartureStation.current.value === 'origin') {
+            isValidForm = false;
+            errors['origin'] = 'Select origin station'
+        }
+
+        // Not select destination station
+        if (this.searchArrivalStation.current.value === 'destination') {
+            isValidForm = false;
+            errors['destination'] = 'Select your destination'
+        }
+
+        // Not select start flight date
+        if (!this.state.startDate) {
+            isValidForm = false;
+            errors['startDate'] = 'Select your flight date'
+        }
+
+        this.setState({errors});
+
+        return isValidForm
+    }
+
     render() {
         return (
             <div className="search-flight">
                 <form className="card" onSubmit={this.searchFlight}>
                     <h2>Search flights</h2>
                     <label htmlFor="originStation">Origin</label>
-                    <select id="originStation" value={this.state.value} onChange={this.handleOriginStationChange}
+                    <select id="originStation" className="station-select" value={this.state.origin}
+                            onChange={this.handleOriginStationChange}
                             ref={this.searchDepartureStation}>
                         <option value="origin" key="origin">Choose origin station</option>
                         {Object.keys(this.state.stations).map(key =>
                             this.renderStationsOption(this.state.stations[key])
                         )}
                     </select>
+                    <span style={{color: "red"}}>{this.state.errors['origin']}</span>
                     <label htmlFor="destinationStation">Destination</label>
-                    <select id="originStation" value={this.state.value2} onChange={this.handleChange2}
+                    <select id="originStation" className="station-select" value={this.state.destination}
+                            onChange={this.handleDestinationStationChange}
                             ref={this.searchArrivalStation}>
                         <option value="destination" key="destination">Choose your destination station</option>
                         {Object.keys(this.state.connectedStations).map(key =>
                             this.renderConnectedStationsOption(this.state.connectedStations[key])
                         )}
                     </select>
+                    <span style={{color: "red"}}>{this.state.errors['destination']}</span>
                     <DateRangePicker
                         startDateId="startDateId"
                         endDateId="endDateId"
@@ -108,11 +170,7 @@ class SearchFlight extends React.Component {
                         focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                         onFocusChange={focusedInput => this.setState({focusedInput})} // PropTypes.func.isRequired,
                     />
-
-                    {/*Departure*/}
-                    {/*<input type="text" placeholder="Departure"/>*/}
-                    {/*Return*/}
-                    {/*<input type="text" placeholder="Return"/>*/}
+                    <span style={{color: "red"}}>{this.state.errors['startDate']}</span>
                     <button type="submit" className="button button--primary button--medium">Search</button>
                 </form>
             </div>

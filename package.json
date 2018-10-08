@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dayjs": "^1.7.7",
+    "moment": "^2.22.2",
     "node-sass": "^4.9.3",
     "react": "^16.5.2",
     "react-dates": "^18.1.0",
