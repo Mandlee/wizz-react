@@ -4,6 +4,7 @@
 @import "buttons";
 @import "inputs";
 @import "datepicker";
+@import "icons";
 //https://fonts.google.com/specimen/Source+Sans+Pro?selection.family=Source+Sans+Pro
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
@@ -51,10 +52,30 @@ body {
 .price-box-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid $light_grey;
 
   .price-box {
-    max-width: 166px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+
+    &:nth-child(3) {
+      background: $light_grey;
+    }
   }
+}
+
+.booking-flight__heading {
+  color: $dark_blue;
+  display: inline-block;
+  margin: 20px;
+  padding: 0;
+  font-size: 40px;
+  font-weight: normal;
+  text-transform: uppercase;
+  line-height: 50px;
+  vertical-align: middle;
 }
 
 //Plane

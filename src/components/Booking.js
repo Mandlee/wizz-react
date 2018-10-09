@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import LeftPanel from "./LeftPanel";
 import BookingFlight from "./BookingFlight";
+import {searchTicket} from "../api";
 
 class Booking extends Component {
 
@@ -24,21 +25,28 @@ class Booking extends Component {
         this.setState({tickets});
     };
 
+    isTicketActive = (ticketTypeKey, fareSellKey) => {
+        const tickets = {...this.state.tickets};
+        let isActive = false;
+
+        // console.log(fareSellKey);
+        Object.keys(tickets).map((key) => {
+            if (key === ticketTypeKey && tickets[key].fareSellKey === fareSellKey) {
+                isActive = true;
+            }
+        });
+
+        return isActive;
+    };
+
     getReturnFlights = () => {
         return this.state.flightsReturn;
     };
 
     componentDidMount() {
         const {originStation, destinationStation, departureDate} = this.props.match.params;
-        fetch(`https://mock-air.herokuapp.com/search?departureStation=${originStation}&arrivalStation=${destinationStation}&date=${departureDate}`)
-            .then(response => response.json())
-            .then(data => {
-                this.setState({flights: data});
-                console.log(data);
-            })
-            .catch(error => {
-                console.log(error.message);
-            });
+        searchTicket(originStation, destinationStation, departureDate)
+            .then(flights => this.setState({flights}));
     }
 
     render() {
@@ -48,6 +56,7 @@ class Booking extends Component {
                     <LeftPanel tickets={this.state.tickets}/>
                     <BookingFlight flights={this.state.flights}
                                    addTicket={this.addTicket}
+                                   isTicketActive={this.isTicketActive}
                                    selectFlightReturns={this.selectFlightReturns}
                                    getReturnFlights={this.getReturnFlights}
                                    {...this.props}/>

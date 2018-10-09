@@ -20,7 +20,7 @@
 
   }
 
-  &--link{
+  &--link {
     color: $pink;
     text-decoration: underline;
   }
@@ -32,9 +32,14 @@
   }
 
   &--price {
+    background: transparent;
     border: 2px solid $pink;
     border-radius: 3px;
     font-weight: 700;
     font-size: 20px;
+
+    &--active {
+      color: $pink;
+    }
   }
 }

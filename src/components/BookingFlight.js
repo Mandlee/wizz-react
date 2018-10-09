@@ -20,15 +20,16 @@ class BookingFlight extends React.Component {
 
     renderFlight = (key) => {
         const flight = this.props.flights[key];
+        let buttonClassNames = 'button button--medium button--price';
+
         return (
             <div key={flight.flightNumber} className="price-box-container">
-                <div
-                    className="price-box">{moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}</div>
+                <div className="price-box">{moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}</div>
                 {Object.keys(flight.fares).map((fareKey) => {
-                    return <div className="price-box">
-                        <button className="button button--medium button--price"
+                    return <div className="price-box"  key={flight.fares[fareKey].fareSellKey}>
+                        <button className={this.props.isTicketActive('originTicket', flight.fares[fareKey].fareSellKey) ? `${buttonClassNames} button--price--active` : buttonClassNames}
                                 onClick={(e) => this.handleClick('originTicket', flight.fares[fareKey])}
-                                key={flight.fares[fareKey].fareSellKey}>{priceEuro(flight.fares[fareKey].price)}</button>
+                               >{priceEuro(flight.fares[fareKey].price)}</button>
                     </div>
                 })}
             </div>
@@ -74,7 +75,10 @@ class BookingFlight extends React.Component {
         return (
 
             <div className="booking-flight">
-                <h1>Select flights</h1>
+                <div className="r">
+                    <i className="icon icon__airplane"></i>
+                    <h1 className="booking-flight__heading heading--1">Select flights</h1>
+                </div>
                 <div className="card card__discount-promo">
                     <div>
                         <button className="button button--primary button--medium">Show Discount Club fares</button>
@@ -95,7 +99,7 @@ class BookingFlight extends React.Component {
                         <div className="price-box">Plus</div>
                     </div>
                     {/*<div>*/}
-                        {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
+                    {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
                     {/*</div>*/}
                 </div>
 
