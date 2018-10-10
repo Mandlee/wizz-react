@@ -4,6 +4,11 @@
   box-shadow: 0 15px 25px #ddd;
   margin-bottom: 20px;
 
+  &__title {
+    text-transform: uppercase;
+    color: $dark_blue;
+  }
+
   &--booking-flow {
     position: relative;
     background: none;

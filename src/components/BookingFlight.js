@@ -89,8 +89,16 @@ class BookingFlight extends React.Component {
                 </div>
                 <div className="card">
                     <div>Outbound
+                        <address>
+                            <span className="booking-flight__station">({this.props.match.params.originStation})</span>
+                            <i className="icon icon__toright-arrow"></i>
+                            <span className="booking-flight__station">({this.props.match.params.destinationStation})</span>
+                        </address>
                     </div>
-                    <div>{moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}
+                    <div children="booking-flight__select-date">
+                        <i className="icon icon__left-arrow"></i>{moment(this.props.match.params.departureDate).subtract(1, 'day').format(`ddd D MMM`)}
+                        {moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}
+                        {moment(this.props.match.params.departureDate).add(1, 'day').format(`ddd D MMM`)}<i className="icon icon__right-arrow"></i>
                     </div>
                     <div className="price-box-container">
                         <div className="price-box"></div>
@@ -98,9 +106,37 @@ class BookingFlight extends React.Component {
                         <div className="price-box">Standard</div>
                         <div className="price-box">Plus</div>
                     </div>
-                    {/*<div>*/}
                     {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
-                    {/*</div>*/}
+                    <div className="price-box-container">
+                        <div className="price-box"></div>
+                        <div className="price-box">
+                            <span>JUST THE ESSENTIALS</span>
+                            <ul>
+                                <li>Flight ticket</li>
+                                <li>1 small cabin bag</li>
+                            </ul>
+                        </div>
+                        <div className="price-box">
+                            <span>€2.25 CHEAPER IN BUNDLE</span>
+                            <ul>
+                                <li>Flight ticket</li>
+                                <li>1 large cabin bag</li>
+                                <li>Seat selection</li>
+                            </ul>
+                        </div>
+                        <div className="price-box">
+                            <span>€3.25 CHEAPER IN BUNDLE</span>
+                            <ul>
+                                <li>Flight ticket</li>
+                                <li>1 large cabin bag</li>
+                                <li>1 heavy checked-in bag</li>
+                                <li>+1 small personal item onboard</li>
+                                <li>Seat selection</li>
+                                <li>Flex for flight changes</li>
+                                <li>Priority Boarding</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
 
