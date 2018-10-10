@@ -3,6 +3,7 @@ import moment from 'moment';
 import {SingleDatePicker} from "react-dates";
 import {searchTicket} from '../api';
 import {priceEuro} from "../helper";
+import DateChart from "./DateChart";
 
 class BookingFlight extends React.Component {
 
@@ -82,23 +83,26 @@ class BookingFlight extends React.Component {
                 <div className="card card__discount-promo">
                     <div>
                         <button className="button button--primary button--medium">Show Discount Club fares</button>
-                        <span>€10 discount on flights</span>
-                        <span>€5 discount on baggages</span>
+                        <ul>
+                            <li>€10 discount on flights</li>
+                            <li>€5 discount on baggages</li>
+                        </ul>
                         <button className="button button--link button--medium">Read More</button>
                     </div>
                 </div>
                 <div className="card">
-                    <div>Outbound
-                        <address>
+                    <div className="booking-flight__title-container">
+                        <div className="booking-flight__title-container__title">Outbound</div>
+                        <address className="booking-flight__title-container__flight-route">
                             <span className="booking-flight__station">({this.props.match.params.originStation})</span>
                             <i className="icon icon__toright-arrow"></i>
                             <span className="booking-flight__station">({this.props.match.params.destinationStation})</span>
                         </address>
                     </div>
-                    <div children="booking-flight__select-date">
-                        <i className="icon icon__left-arrow"></i>{moment(this.props.match.params.departureDate).subtract(1, 'day').format(`ddd D MMM`)}
-                        {moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}
-                        {moment(this.props.match.params.departureDate).add(1, 'day').format(`ddd D MMM`)}<i className="icon icon__right-arrow"></i>
+                    <div className="booking-flight__select-date">
+                        <div><i className="icon icon__left-arrow"></i>{moment(this.props.match.params.departureDate).subtract(1, 'day').format(`ddd D MMM`)}</div>
+                        <div className="booking-flight__current_date">{moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}</div>
+                        <div>{moment(this.props.match.params.departureDate).add(1, 'day').format(`ddd D MMM`)}<i className="icon icon__right-arrow"></i></div>
                     </div>
                     <div className="price-box-container">
                         <div className="price-box"></div>
@@ -109,14 +113,14 @@ class BookingFlight extends React.Component {
                     {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
                     <div className="price-box-container">
                         <div className="price-box"></div>
-                        <div className="price-box">
+                        <div className="price-box price-box--list-container">
                             <span>JUST THE ESSENTIALS</span>
                             <ul>
                                 <li>Flight ticket</li>
                                 <li>1 small cabin bag</li>
                             </ul>
                         </div>
-                        <div className="price-box">
+                        <div className="price-box price-box--list-container">
                             <span>€2.25 CHEAPER IN BUNDLE</span>
                             <ul>
                                 <li>Flight ticket</li>
@@ -124,7 +128,7 @@ class BookingFlight extends React.Component {
                                 <li>Seat selection</li>
                             </ul>
                         </div>
-                        <div className="price-box">
+                        <div className="price-box price-box--list-container">
                             <span>€3.25 CHEAPER IN BUNDLE</span>
                             <ul>
                                 <li>Flight ticket</li>
@@ -137,6 +141,7 @@ class BookingFlight extends React.Component {
                             </ul>
                         </div>
                     </div>
+                    <DateChart/>
                 </div>
 
 

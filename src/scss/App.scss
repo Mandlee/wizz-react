@@ -5,6 +5,9 @@
 @import "inputs";
 @import "datepicker";
 @import "icons";
+
+@import "booking-flight";
+@import "date-chart";
 //https://fonts.google.com/specimen/Source+Sans+Pro?selection.family=Source+Sans+Pro
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
@@ -49,6 +52,8 @@ body {
   margin: 0 28px 0 14px;
 }
 
+
+//Booking price box
 .price-box-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -63,29 +68,16 @@ body {
     &:nth-child(3) {
       background: $light_grey;
     }
+
+    &--list-container{
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
   }
 }
 
-.booking-flight__heading {
-  color: $dark_blue;
-  display: inline-block;
-  margin: 20px;
-  padding: 0;
-  font-size: 40px;
-  font-weight: normal;
-  text-transform: uppercase;
-  line-height: 50px;
-  vertical-align: middle;
-}
-
-.booking-flight__station{
-  color: $dark_blue;
-  font-size: 22px;
-  font-weight: 800;
-  font-style: normal; //TODO <address>
-}
-
-
+//Left Panel
 .booking-flow__title {
   display: inline-block;
   text-transform: capitalize;
@@ -94,6 +86,10 @@ body {
 .booking-flow__price {
   float: right;
   color: $dark_blue;
+}
+
+.car__discount-club{
+
 }
 
 //Plane

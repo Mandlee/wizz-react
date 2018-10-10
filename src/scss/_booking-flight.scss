@@ -1,0 +1,48 @@
+.booking-flight {
+  &__heading {
+    color: $dark_blue;
+    display: inline-block;
+    margin: 20px;
+    padding: 0;
+    font-size: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+    line-height: 50px;
+    vertical-align: middle;
+  }
+
+  &__station {
+    color: $dark_blue;
+    font-size: 22px;
+    font-weight: 800;
+    font-style: normal; //TODO <address>
+  }
+
+  &__title-container {
+    border-radius: 5px 5px 0 0;
+    background: $light_grey;
+    padding: 22px 0;
+    display: flex;
+
+    &__title {
+      flex: 0 0 277px;
+      padding: 0 22px;
+    }
+
+    &__flight-route {
+      flex: 1;
+      padding: 0 22px;
+    }
+  }
+
+  &__select-date {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+  }
+
+  &__current_date {
+    font-size: 22px;
+  }
+}
