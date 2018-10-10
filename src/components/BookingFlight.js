@@ -4,6 +4,7 @@ import {SingleDatePicker} from "react-dates";
 import {searchTicket} from '../api';
 import {priceEuro} from "../helper";
 import DateChart from "./DateChart";
+import SoldOut from "./SoldOut";
 
 class BookingFlight extends React.Component {
 
@@ -141,7 +142,7 @@ class BookingFlight extends React.Component {
                             </ul>
                         </div>
                     </div>
-                    <DateChart/>
+                    <DateChart selectedDate={this.props.match.params.departureDate}/>
                 </div>
 
 
@@ -162,6 +163,7 @@ class BookingFlight extends React.Component {
                     </div>
                     <div>
                         {Object.keys(this.props.getReturnFlights()).map(key => this.renderReturnFlight(key))}
+                        <SoldOut/>
                     </div>
                 </div>
             </div>

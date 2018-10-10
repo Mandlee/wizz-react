@@ -29,12 +29,11 @@ class Booking extends Component {
         const tickets = {...this.state.tickets};
         let isActive = false;
 
-        // console.log(fareSellKey);
-        Object.keys(tickets).map((key) => {
+        for (let key in tickets) {
             if (key === ticketTypeKey && tickets[key].fareSellKey === fareSellKey) {
                 isActive = true;
             }
-        });
+        }
 
         return isActive;
     };
