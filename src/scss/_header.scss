@@ -40,4 +40,13 @@
   &__icon {
     margin: -15px 10px 0 10px;
   }
+
+  &--flight-passengers {
+    &__icon-person {
+      margin: -8px 10px 0 10px;;
+    }
+    &__icon-child {
+      margin: -4px 10px 0 10px;
+    }
+  }
 }

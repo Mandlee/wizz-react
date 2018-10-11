@@ -48,4 +48,15 @@
     height: 18px;
     background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='11' height='19' viewBox='0 0 11 19' xmlns='http://www.w3.org/2000/svg' fill='%23c6007e'%3E%3Cpath d='M10.496 9.482L1.719.499.501 1.746l7.574 7.751L.499 17.25l1.219 1.247 8.777-8.984-.014-.015.015-.016z' fill-rule='evenodd'/%3E%3C/svg%3E");
   }
+
+  &__person {
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='30' height='34' viewBox='0 0 30 34' xmlns='http://www.w3.org/2000/svg' fill='%236461ed'%3E%3Ctitle%3Eunknown%3C/title%3E%3Cpath d='M18.797 18.237v-1c1.37-.873 2.365-2.247 3.112-3.745h.497c.87 0 1.493-.75 1.493-1.748 0-.75-.497-1.373-1.12-1.623 1.618-4.62-1.12-8.74-4.232-8.614-.498-.75-.125-.5-.872-1.5C8.963-.24 5.602 5.877 6.598 10.372c-.623.126-1.12.75-1.12 1.624 0 .874.622 1.748 1.493 1.748h.623c.747 1.623 1.992 2.996 3.486 3.995v.75C4.605 19.61 0 24.23 0 31.096c7.47 3.87 24.523 3.87 30 0 0-6.992-4.855-11.487-11.203-12.86z' fill-rule='evenodd'/%3E%3C/svg%3E");
+
+    &--child {
+      width: 15px;
+      height: 15px;
+    }
+  }
 }
