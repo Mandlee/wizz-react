@@ -5,6 +5,7 @@ import {searchTicket} from '../api';
 import {priceEuro} from "../helper";
 import DateChart from "./DateChart";
 import SoldOut from "./SoldOut";
+import DiscountClub from "./DiscountClub";
 
 class BookingFlight extends React.Component {
 
@@ -20,13 +21,15 @@ class BookingFlight extends React.Component {
         this.setReturnDate = this.setReturnDate.bind(this);
     }
 
+    //TODO REMAINING!!!!!
+
     renderFlight = (key) => {
         const flight = this.props.flights[key];
         let buttonClassNames = 'button button--medium button--price';
 
         return (
             <div key={flight.flightNumber} className="price-box-container">
-                <div className="price-box">{moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}</div>
+                <div className="price-box">{moment(flight.departure).format(`hh:mm`)} <i className="icon icon__toright-arrow icon__toright-arrow--small-blue"/> {moment(flight.arrival).format(`hh:mm`)}</div>
                 {Object.keys(flight.fares).map((fareKey) => {
                     return <div className="price-box"  key={flight.fares[fareKey].fareSellKey}>
                         <button className={this.props.isTicketActive('originTicket', flight.fares[fareKey].fareSellKey) ? `${buttonClassNames} button--price--active` : buttonClassNames}
@@ -78,42 +81,33 @@ class BookingFlight extends React.Component {
 
             <div className="booking-flight">
                 <div className="r">
-                    <i className="icon icon__airplane"></i>
+                    <i className="icon icon__airplane"/>
                     <h1 className="booking-flight__heading heading--1">Select flights</h1>
                 </div>
-                <div className="card card__discount-promo">
-                    <div>
-                        <button className="button button--primary button--medium">Show Discount Club fares</button>
-                        <ul>
-                            <li>€10 discount on flights</li>
-                            <li>€5 discount on baggages</li>
-                        </ul>
-                        <button className="button button--link button--medium">Read More</button>
-                    </div>
-                </div>
+                <DiscountClub/>
                 <div className="card">
                     <div className="booking-flight__title-container">
                         <div className="booking-flight__title-container__title">Outbound</div>
                         <address className="booking-flight__title-container__flight-route">
                             <span className="booking-flight__station">({this.props.match.params.originStation})</span>
-                            <i className="icon icon__toright-arrow"></i>
+                            <i className="icon icon__toright-arrow"/>
                             <span className="booking-flight__station">({this.props.match.params.destinationStation})</span>
                         </address>
                     </div>
                     <div className="booking-flight__select-date">
-                        <div><i className="icon icon__left-arrow"></i>{moment(this.props.match.params.departureDate).subtract(1, 'day').format(`ddd D MMM`)}</div>
+                        <div><i className="icon icon__left-arrow"/>{moment(this.props.match.params.departureDate).subtract(1, 'day').format(`ddd D MMM`)}</div>
                         <div className="booking-flight__current_date">{moment(this.props.match.params.departureDate).format(`dddd, D MMMM YYYY`)}</div>
-                        <div>{moment(this.props.match.params.departureDate).add(1, 'day').format(`ddd D MMM`)}<i className="icon icon__right-arrow"></i></div>
+                        <div>{moment(this.props.match.params.departureDate).add(1, 'day').format(`ddd D MMM`)}<i className="icon icon__right-arrow"/></div>
                     </div>
                     <div className="price-box-container">
-                        <div className="price-box"></div>
+                        <div className="price-box"/>
                         <div className="price-box">Basic</div>
                         <div className="price-box">Standard</div>
                         <div className="price-box">Plus</div>
                     </div>
                     {Object.keys(this.props.flights).map(key => this.renderFlight(key))}
                     <div className="price-box-container">
-                        <div className="price-box"></div>
+                        <div className="price-box"/>
                         <div className="price-box price-box--list-container">
                             <span>JUST THE ESSENTIALS</span>
                             <ul>
@@ -158,9 +152,10 @@ class BookingFlight extends React.Component {
                             id="return_date_id" // PropTypes.string.isRequired,
                         />
                     </div>
-                    <div>
+                    {this.state.date && <div>
                         {moment(this.state.date).format(`dddd, D MMMM YYYY`)}
                     </div>
+                    }
                     <div>
                         {Object.keys(this.props.getReturnFlights()).map(key => this.renderReturnFlight(key))}
                         <SoldOut/>

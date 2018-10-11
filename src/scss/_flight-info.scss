@@ -1,0 +1,84 @@
+.flight-info {
+  &__date {
+    display: block;
+    float: left;
+    margin-right: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    background: #fff;
+    border: 2px solid #e1e1e1;
+    border-radius: 3px;
+    width: 50px;
+  }
+
+  &__month {
+    display: block;
+    width: 100%;
+    padding: 3px 0;
+    font-size: 14px;
+    background: #f2f2f2;
+  }
+
+  &__day {
+    display: block;
+    padding: 3px 0;
+    font-size: 18px;
+    font-weight: 800;
+  }
+}
+
+// Total booking
+.total-booking {
+  &__bottom-title {
+    padding: 20px 0;
+    color: $dark_blue;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+    display: block;
+    letter-spacing: 1px;
+  }
+}
+
+// Discount club price card
+.discount-club {
+  text-transform: uppercase;
+  font-weight: 800;
+
+  &__title {
+    text-align: center;
+    padding: 10px 20px;
+    display: block;
+    position: relative;
+    font-size: 12px;
+    color: $dark_blue;
+
+    &::after {
+      position: absolute;
+      content: '';
+      left: 0;
+      right: 0;
+      bottom: 5px;
+      height: 1px;
+      background-color: $light_grey;
+    }
+  }
+
+  &__wizz-price {
+    color: $dark_blue;
+    font-size: 20px;
+  }
+
+  &__orig-price {
+    color: $darkest_grey;
+
+    .booking-flow__price {
+      color: $darkest_grey;
+    }
+  }
+
+  &__wizz-price,
+  &__orig-price {
+    padding: 5px 0;
+  }
+}

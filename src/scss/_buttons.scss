@@ -11,13 +11,14 @@
     }
   }
 
+  &--secondary {
+    border: 2px solid $pink;
+    color: $pink;
+  }
+
   &--dark {
     background-color: $dark_blue;
     color: $light_text;
-  }
-
-  &--secondory {
-
   }
 
   &--link {
@@ -31,6 +32,8 @@
     padding: 15px 20px;
     font-size: 14px;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
   }
 
   &--full-width {

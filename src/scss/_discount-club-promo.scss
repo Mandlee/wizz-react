@@ -1,0 +1,16 @@
+.discount-club-promo {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+
+  &__list {
+    display: inline-block;
+    margin: 0;
+    list-style: none;
+  }
+
+  &__cta {
+    margin-left: auto;
+    padding: 15px 0;
+  }
+}

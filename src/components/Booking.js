@@ -52,7 +52,7 @@ class Booking extends Component {
         return (
             <div className="booking">
                 <div className="booking-container">
-                    <LeftPanel tickets={this.state.tickets}/>
+                    <LeftPanel tickets={this.state.tickets} {...this.props}/>
                     <BookingFlight flights={this.state.flights}
                                    addTicket={this.addTicket}
                                    isTicketActive={this.isTicketActive}

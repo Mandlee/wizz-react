@@ -7,6 +7,7 @@
   &__title {
     text-transform: uppercase;
     color: $dark_blue;
+    margin: 10px 0;
   }
 
   &--booking-flow {
@@ -14,6 +15,10 @@
     background: none;
     box-shadow: none;
     border-radius: 0;
+
+    &__container {
+      padding: 10px 20px;
+    }
 
     &::before {
       position: absolute;
@@ -30,5 +35,17 @@
       background-size: 1147px 9px;
       content: "";
     }
+
+    &__total {
+      &::before {
+        content: none;
+      }
+      border-bottom: 2px dotted #b8b8b8;
+    }
+  }
+
+  &__discount-promo {
+    //padding: 20px;
+    
   }
 }
