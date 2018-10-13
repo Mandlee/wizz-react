@@ -150,10 +150,10 @@ class SearchFlight extends React.Component {
     render() {
         return (
             <div className="search-flight">
-                <form className="card" onSubmit={this.searchFlight}>
-                    <h2>Search flights</h2>
-                    <label htmlFor="originStation">Origin</label>
-                    <select id="originStation" className="station-select" value={this.state.origin}
+                <form className="card search-flight__card" onSubmit={this.searchFlight}>
+                    <h2 className="search-flight__heading">Search flights</h2>
+                    <label htmlFor="originStation" className="search-flight__label">Origin</label>
+                    <select id="originStation" className="search-flight__station-select" value={this.state.origin}
                             onChange={this.handleOriginStationChange}
                             ref={this.searchDepartureStation}>
                         <option value="origin" key="origin">Choose origin station</option>
@@ -162,8 +162,8 @@ class SearchFlight extends React.Component {
                         )}
                     </select>
                     <span style={{color: "red"}}>{this.state.errors['origin']}</span>
-                    <label htmlFor="destinationStation">Destination</label>
-                    <select id="originStation" className="station-select" value={this.state.destination}
+                    <label htmlFor="destinationStation" className="search-flight__label">Destination</label>
+                    <select id="originStation" className="search-flight__station-select" value={this.state.destination}
                             onChange={this.handleDestinationStationChange}
                             ref={this.searchArrivalStation}>
                         <option value="destination" key="destination">Choose your destination station</option>
@@ -172,16 +172,19 @@ class SearchFlight extends React.Component {
                         )}
                     </select>
                     <span style={{color: "red"}}>{this.state.errors['destination']}</span>
-                    <DateRangePicker
-                        startDateId="startDateId"
-                        endDateId="endDateId"
-                        startDate={this.state.startDate} // momentPropTypes.momentObj or null,
-                        endDate={this.state.endDate} // momentPropTypes.momentObj or null,
-                        onDatesChange={({startDate, endDate}) => this.setState({startDate, endDate})}
-                        focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
-                        onFocusChange={focusedInput => this.setState({focusedInput})} // PropTypes.func.isRequired,
-                    />
-                    <span style={{color: "red"}}>{this.state.errors['startDate']}</span>
+                    <label htmlFor="originStation" className="search-flight__label">Date</label>
+                    <div className="search-flight__select-date">
+                        <DateRangePicker
+                            startDateId="startDateId"
+                            endDateId="endDateId"
+                            startDate={this.state.startDate} // momentPropTypes.momentObj or null,
+                            endDate={this.state.endDate} // momentPropTypes.momentObj or null,
+                            onDatesChange={({startDate, endDate}) => this.setState({startDate, endDate})}
+                            focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
+                            onFocusChange={focusedInput => this.setState({focusedInput})} // PropTypes.func.isRequired,
+                        />
+                        <span style={{color: "red"}}>{this.state.errors['startDate']}</span>
+                    </div>
                     <button type="submit" className="button button--primary button--medium">Search</button>
                 </form>
             </div>
