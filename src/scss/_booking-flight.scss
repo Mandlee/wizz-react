@@ -27,11 +27,19 @@
     &__title {
       flex: 0 0 277px;
       padding: 0 22px;
+      color: $darkest_grey;
+      text-transform: uppercase;
+      font-size: 18px;
+      font-weight: 800;
     }
 
     &__flight-route {
       flex: 1;
       padding: 0 22px;
+
+      .icon {
+        margin: -5px 10px 0 10px;
+      }
     }
   }
 
@@ -40,6 +48,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-between;
+    padding: 20px;
   }
 
   &__current_date {

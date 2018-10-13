@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SoldOut = props => {
+const NoFlights = props => {
     return (
         <div className="sold-out">
             <p>
@@ -11,4 +11,4 @@ const SoldOut = props => {
     )
 };
 
-export default SoldOut;
+export default NoFlights;

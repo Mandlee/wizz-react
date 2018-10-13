@@ -36,9 +36,9 @@ class DateChart extends React.Component {
             <React.Fragment>
                 <div className="more-dates__header">More dates</div>
                 <div className="more-dates">
-                    <div className="more-dates__control-icon-left"><i className="icon icon__left-arrow"></i></div>
+                    <div className="more-dates__control-icon-left"><i className="icon icon__left-arrow"/></div>
                     <div className="more-dates__date-bars">{DateChart.renderCharts(this.props.selectedDate)}</div>
-                    <div className="more-dates__control-icon-right"><i className="icon icon__right-arrow"></i></div>
+                    <div className="more-dates__control-icon-right"><i className="icon icon__right-arrow"/></div>
                 </div>
             </React.Fragment>
         )
