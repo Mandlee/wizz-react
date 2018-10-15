@@ -65,6 +65,8 @@ class BookingFlight extends React.Component {
                                   status={this.props.flightsStatus.origin}
                                   isTicketActive={this.props.isTicketActive}
                                   onSelectDate={this.props.onSelectDate}
+                                  fullNameOrigStation={this.props.fullNameOrigStation}
+                                  fullNameDestStation={this.props.fullNameDestStation}
                     />
                 </div>
 
@@ -82,6 +84,8 @@ class BookingFlight extends React.Component {
                                       status={this.props.flightsStatus.return}
                                       isTicketActive={this.props.isTicketActive}
                                       onSelectDate={this.props.onSelectDate}
+                                      fullNameOrigStation={this.props.fullNameDestStation}
+                                      fullNameDestStation={this.props.fullNameOrigStation}
                         />
                     ) : (
                         <div>

@@ -11,10 +11,10 @@ const Header = props => (
         <React.Fragment>
             <div className="header__flight-route flight-route">
                 <span className="flight-route__title">Leaving from</span>
-                <span className="flight-route__origin-full">Budapest</span> <span
+                <span className="flight-route__origin-full">{props.originStationFullName}</span> <span
                 className="flight-route__origin-short">{props.originStation}</span>
                 <i className="icon icon__return-arrow flight-route__icon"/>
-                <span className="flight-route__origin-full">Barcelona Lorem ipsum</span> <span
+                <span className="flight-route__origin-full">{props.destinationStationFullName}</span> <span
                 className="flight-route__origin-short">{props.destinationStation}</span>
             </div>
             <div className="header__flight-route flight-route flight-route--flight-passengers">

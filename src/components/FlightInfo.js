@@ -11,7 +11,8 @@ const FlightInfo = props => {
                 <span className="flight-info__month"> {moment(departure).format('MMM')} </span>
                 <span className="flight-info__day"> {moment(departure).format('DD')} </span>
             </span>
-            <span className="flight-info__stations">{props.originStation} - {props.destinationStation}</span>
+            <span
+                className="flight-info__stations">{props.fullNameOrigStation} ({props.originStation}) - {props.fullNameDestStation}({props.destinationStation})</span>
             <span
                 className="flight-info__time"> {moment(departure).format('HH:mm')} – {moment(arrival).format('HH:mm')} ({carrierCode})
             </span>

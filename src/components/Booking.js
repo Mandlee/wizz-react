@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import LeftPanel from "./LeftPanel";
 import BookingFlight from "./BookingFlight";
-import {searchTicket} from "../api";
+import {getStations, searchTicket} from "../api";
 
 class Booking extends Component {
 
@@ -21,7 +21,8 @@ class Booking extends Component {
                     loading: true,
                     noFlights: false
                 }
-            }
+            },
+            stations: []
         };
     }
 
@@ -54,23 +55,36 @@ class Booking extends Component {
 
     componentDidMount() {
         const {originStation, destinationStation} = this.props.match.params;
-        this.props.setStations(originStation, destinationStation);
-        this.fetchData()
+        this.fetchTickets();
+
+        getStations().then(stations => {
+            this.setState({stations});
+            this.props.setStations(originStation, destinationStation, this.getFullNameStation(originStation), this.getFullNameStation(destinationStation));
+        })
     }
+
+    getFullNameStation(key) {
+        const station = this.state.stations.find(element => element.iata === key);
+        if (station) {
+            return station.shortName;
+        }
+        return '';
+    }
+
 
     componentDidUpdate(prevProps, prevState) {
         const {arrivalDate, departureDate} = this.props.match.params;
         if (arrivalDate !== prevProps.match.params.arrivalDate) {
-            this.fetchData()
+            this.fetchTickets()
         }
         if (departureDate !== prevProps.match.params.departureDate) {
-            this.fetchData()
+            this.fetchTickets()
         }
     }
 
-    fetchData() {
+    fetchTickets() {
         const {originStation, destinationStation, departureDate, arrivalDate} = this.props.match.params;
-        
+
         let flightsStatus = {...this.state.flightsStatus};
         flightsStatus.origin.loading = true;
         flightsStatus.return.loading = true;
@@ -118,10 +132,16 @@ class Booking extends Component {
     };
 
     render() {
+        const {originStation, destinationStation} = this.props.match.params;
+
         return (
             <div className="booking">
                 <div className="booking-container">
-                    <LeftPanel tickets={this.state.tickets} params={this.props.match.params}/>
+                    <LeftPanel tickets={this.state.tickets}
+                               params={this.props.match.params}
+                               fullNameOrigStation={this.getFullNameStation(originStation)}
+                               fullNameDestStation={this.getFullNameStation(destinationStation)}
+                    />
                     <BookingFlight flights={this.state.flights}
                                    flightsReturns={this.state.flightsReturn}
                                    addTicket={this.addTicket}
@@ -129,6 +149,8 @@ class Booking extends Component {
                                    selectFlightReturns={this.selectFlightReturns}
                                    flightsStatus={this.state.flightsStatus}
                                    onSelectDate={this.handleSelectDate}
+                                   fullNameOrigStation={this.getFullNameStation(originStation)}
+                                   fullNameDestStation={this.getFullNameStation(destinationStation)}
                                    {...this.props}/>
                 </div>
             </div>

@@ -7,18 +7,19 @@ import Booking from "./components/Booking";
 import './scss/App.scss';
 
 class App extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
             originStation: null,
-            destinationStation: null
+            destinationStation: null,
+            originStationFullName: null,
+            destinationStationFullName: null
         }
     }
 
-    setStations = (originStation, destinationStation) =>{
-        console.log(originStation, destinationStation);
-        this.setState({originStation, destinationStation})
+    setStations = (originStation, destinationStation, originStationFullName, destinationStationFullName) => {
+        this.setState({originStation, destinationStation, originStationFullName, destinationStationFullName})
     };
 
     render() {
@@ -28,8 +29,9 @@ class App extends Component {
                     <Header {...this.state}/>
                     <Switch>
                         <Route exact path="/" component={SearchFlight}/>
-                        <Route path="/booking/select-flight/:originStation/:destinationStation/:departureDate/:arrivalDate?"
-                               render={(props) => <Booking setStations={this.setStations} {...props} />}/>
+                        <Route
+                            path="/booking/select-flight/:originStation/:destinationStation/:departureDate/:arrivalDate?"
+                            render={(props) => <Booking setStations={this.setStations} {...props} />}/>
                     </Switch>
                 </div>
             </BrowserRouter>

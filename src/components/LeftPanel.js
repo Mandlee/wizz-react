@@ -58,6 +58,8 @@ class LeftPanel extends React.Component {
                         {this.props.tickets.originTicket &&
                         <FlightInfo date={departureDate}
                                     ticket={this.props.tickets.originTicket}
+                                    fullNameOrigStation={this.props.fullNameOrigStation}
+                                    fullNameDestStation={this.props.fullNameDestStation}
                                     originStation={originStation}
                                     destinationStation={destinationStation}/>
 
@@ -65,6 +67,8 @@ class LeftPanel extends React.Component {
                         {this.props.tickets.returnTicket &&
                         <FlightInfo date={arrivalDate}
                                     ticket={this.props.tickets.returnTicket}
+                                    fullNameOrigStation={this.props.fullNameDestStation}
+                                    fullNameDestStation={this.props.fullNameOrigStation}
                                     originStation={destinationStation}
                                     destinationStation={originStation}/>
 

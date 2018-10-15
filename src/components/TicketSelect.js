@@ -96,16 +96,16 @@ class TicketSelect extends Component {
     };
 
     render() {
-        const {originStation, destinationStation, date} = this.props;
+        const {originStation, destinationStation, fullNameDestStation, fullNameOrigStation, date} = this.props;
 
         return (
             <React.Fragment>
                 <div className="booking-flight__title-container">
                     <div className="booking-flight__title-container__title">Outbound</div>
                     <address className="booking-flight__title-container__flight-route">
-                        <span className="booking-flight__station">({originStation})</span>
+                        <span className="booking-flight__station">{fullNameOrigStation}({originStation})</span>
                         <i className="icon icon__toright-arrow"/>
-                        <span className="booking-flight__station">({destinationStation})</span>
+                        <span className="booking-flight__station">{fullNameDestStation}({destinationStation})</span>
                     </address>
                 </div>
                 <div className="booking-flight__select-date">
