@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DiscountClub = props => {
+const DiscountClub = () => {
     return (
         <div className="card card__discount-promo">
             <div className="discount-club-promo">

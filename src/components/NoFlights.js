@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NoFlights = props => {
+const NoFlights = () => {
     return (
         <div className="sold-out">
             <p>

@@ -25,43 +25,6 @@ class BookingFlight extends React.Component {
         this.setReturnDate = this.setReturnDate.bind(this);
     }
 
-    //TODO REMAINING!!!!!
-
-    renderFlight = (key) => {
-        const flight = this.props.flights[key];
-        let buttonClassNames = 'button button--medium button--price';
-
-        return (
-            <div key={flight.flightNumber} className="price-box-container">
-                <div className="price-box">{moment(flight.departure).format(`hh:mm`)} <i
-                    className="icon icon__toright-arrow icon__toright-arrow--small-blue"/> {moment(flight.arrival).format(`hh:mm`)}
-                </div>
-                {Object.keys(flight.fares).map((fareKey) => {
-                    return <div className="price-box" key={flight.fares[fareKey].fareSellKey}>
-                        <button
-                            className={this.props.isTicketActive('originTicket', flight.fares[fareKey].fareSellKey) ? `${buttonClassNames} button--price--active` : buttonClassNames}
-                            onClick={(e) => this.handleClick('originTicket', flight.fares[fareKey])}
-                        >{priceEuro(flight.fares[fareKey].price)}</button>
-                    </div>
-                })}
-            </div>
-        );
-    };
-
-    renderReturnFlight = (key) => {
-        const flight = this.props.getReturnFlights()[key];
-        console.log(flight);
-        return (
-            <div key={flight.flightNumber}>
-                {moment(flight.departure).format(`hh:mm`)} - {moment(flight.arrival).format(`hh:mm`)}
-                {Object.keys(flight.fares).map((fareKey) => {
-                    return <button className="button button--medium button--price"
-                                   onClick={(e) => this.handleClick('returnTicket', flight.fares[fareKey])}
-                                   key={flight.fares[fareKey].fareSellKey}>{priceEuro(flight.fares[fareKey].price)}</button>
-                })}
-            </div>
-        );
-    };
 
     handleClick(key, flight, item) {
         console.log('handleClick', key, item);

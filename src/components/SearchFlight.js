@@ -36,7 +36,7 @@ class SearchFlight extends React.Component {
             const departureStation = this.searchDepartureStation.current.value;
             const arrivalStation = this.searchArrivalStation.current.value;
             const startDate = this.state.startDate.format('YYYY-MM-DD');
-            const endDate = this.state.endDate ? this.state.endDate.format('YYYY-MM-DD') : null;
+            const endDate = this.state.endDate ? this.state.endDate.format('YYYY-MM-DD') : ``;
             this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}/${startDate}/${endDate}`);
         }
     };

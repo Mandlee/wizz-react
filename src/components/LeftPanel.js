@@ -16,17 +16,17 @@ class LeftPanel extends React.Component {
 
     // getWizz
     getWizzClubTotalPrice() {
-        let total = 0;
-
-        Object.keys(this.props.tickets).map(key =>
-            total += this.props.tickets[key].fare.price - 10
-        );
-
-        return total;
+        return Object.keys(this.props.tickets).reduce((acc, key) => {
+            const {fare: {price}} = this.props.tickets[key];
+            if (price >= 11) {
+                return acc + price - 10;
+            }
+            return acc;
+        }, 0);
     }
 
     render() {
-        const {originStation, destinationStation, departureDate, arrivalDate} = this.props.match.params;
+        const {originStation, destinationStation, departureDate, arrivalDate} = this.props.params;
 
         return (
             <div className="left-panel">

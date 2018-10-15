@@ -14,7 +14,7 @@ class App extends Component {
                     <Header/>
                     <Switch>
                         <Route exact path="/" component={SearchFlight}/>
-                        <Route path="/booking/select-flight/:originStation/:destinationStation/:departureDate/:arrivalDate/" component={Booking}/>
+                        <Route path="/booking/select-flight/:originStation/:destinationStation/:departureDate/:arrivalDate?" component={Booking}/>
                     </Switch>
                 </div>
             </BrowserRouter>

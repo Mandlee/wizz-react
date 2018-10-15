@@ -4,7 +4,7 @@ import moment from "moment";
 
 class DateChart extends React.Component {
 
-    static renderCharts(flightDate) {
+    renderCharts = (flightDate) => {
         const DIVS_NUMBER = 30;
         const startDate = moment(flightDate).subtract(DIVS_NUMBER / 2, 'day');
         let divs = [];
@@ -24,7 +24,7 @@ class DateChart extends React.Component {
             </div>);
         }
         return divs
-    }
+    };
 
     shouldComponentUpdate() {
         //rendering once
@@ -37,7 +37,7 @@ class DateChart extends React.Component {
                 <div className="more-dates__header">More dates</div>
                 <div className="more-dates">
                     <div className="more-dates__control-icon-left"><i className="icon icon__left-arrow"/></div>
-                    <div className="more-dates__date-bars">{DateChart.renderCharts(this.props.selectedDate)}</div>
+                    <div className="more-dates__date-bars">{this.renderCharts(this.props.selectedDate)}</div>
                     <div className="more-dates__control-icon-right"><i className="icon icon__right-arrow"/></div>
                 </div>
             </React.Fragment>
