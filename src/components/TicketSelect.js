@@ -6,11 +6,6 @@ import NoFlights from "./NoFlights";
 
 class TicketSelect extends Component {
 
-    // constructor(props) {
-    //     super(props)
-    //
-    // }
-
     renderFlight = (key) => {
         const flight = this.props.flightTicket[key];
         let buttonClassNames = 'button button--medium button--price';
@@ -115,12 +110,12 @@ class TicketSelect extends Component {
                 </div>
                 <div className="booking-flight__select-date">
                     <div><i
-                        className="icon icon__left-arrow"/>{moment(date).subtract(1, 'day').format(`ddd D MMM`)}
+                        className="icon icon__left-arrow" onClick={()=> this.props.onSelectDate(moment(date).subtract(1, 'day'), this.props.ticketType)} />{moment(date).subtract(1, 'day').format(`ddd D MMM`)}
                     </div>
                     <div
                         className="booking-flight__current_date">{moment(date).format(`dddd, D MMMM YYYY`)}</div>
                     <div>{moment(date).add(1, 'day').format(`ddd D MMM`)}<i
-                        className="icon icon__right-arrow"/></div>
+                        className="icon icon__right-arrow" onClick={()=> this.props.onSelectDate(moment(date).add(1, 'day'), this.props.ticketType)}/></div>
                 </div>
                 {this.renderTickets()}
 

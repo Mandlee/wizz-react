@@ -2,11 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {SingleDatePicker} from "react-dates";
 import {searchTicket} from '../api';
-import {priceEuro} from "../helper";
-import DateChart from "./DateChart";
-import NoFlights from "./NoFlights";
 import DiscountClub from "./DiscountClub";
-import {Link} from "react-router-dom";
 import TicketSelect from "./TicketSelect";
 
 class BookingFlight extends React.Component {
@@ -17,7 +13,7 @@ class BookingFlight extends React.Component {
         const arrivalDate = this.props.match.params.arrivalDate;
 
         this.state = {
-            returnDate: arrivalDate && arrivalDate !== 'null' ? moment(arrivalDate) : null
+            returnDate: arrivalDate ? moment(arrivalDate) : null
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -27,7 +23,6 @@ class BookingFlight extends React.Component {
 
 
     handleClick(key, flight, item) {
-        console.log('handleClick', key, item);
         this.props.addTicket(key, flight, item)
     }
 
@@ -37,6 +32,9 @@ class BookingFlight extends React.Component {
     }
 
     setReturnDate(returnDate) {
+        if (!returnDate) {
+            return
+        }
         this.setState({returnDate: returnDate});
         this.props.history.push(returnDate.format('YYYY-MM-DD'));
         searchTicket(this.props.match.params.destinationStation, this.props.match.params.originStation, returnDate.format('YYYY-MM-DD'))
@@ -47,7 +45,6 @@ class BookingFlight extends React.Component {
     }
 
     render() {
-        console.log(this.props.flightsStatus);
         return (
 
             <div className="booking-flight">
@@ -66,7 +63,8 @@ class BookingFlight extends React.Component {
                                   ticketType='originTicket'
                                   handleClick={this.handleClick}
                                   status={this.props.flightsStatus.origin}
-                                  {...this.props}
+                                  isTicketActive={this.props.isTicketActive}
+                                  onSelectDate={this.props.onSelectDate}
                     />
                 </div>
 
@@ -82,7 +80,8 @@ class BookingFlight extends React.Component {
                                       ticketType='returnTicket'
                                       handleClick={this.handleClick}
                                       status={this.props.flightsStatus.return}
-                                      {...this.props}
+                                      isTicketActive={this.props.isTicketActive}
+                                      onSelectDate={this.props.onSelectDate}
                         />
                     ) : (
                         <div>

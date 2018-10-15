@@ -43,7 +43,7 @@ class Booking extends Component {
         const tickets = {...this.state.tickets};
         let isActive = false;
 
-            for (let key in tickets) {
+        for (let key in tickets) {
             if (key === ticketTypeKey && tickets[key].fare.fareSellKey === fareSellKey) {
                 isActive = true;
             }
@@ -53,7 +53,26 @@ class Booking extends Component {
     };
 
     componentDidMount() {
+        this.fetchData()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        const {arrivalDate, departureDate} = this.props.match.params;
+        if (arrivalDate !== prevProps.match.params.arrivalDate) {
+            this.fetchData()
+        }
+        if (departureDate !== prevProps.match.params.departureDate) {
+            this.fetchData()
+        }
+    }
+
+    fetchData() {
         const {originStation, destinationStation, departureDate, arrivalDate} = this.props.match.params;
+        
+        let flightsStatus = {...this.state.flightsStatus};
+        flightsStatus.origin.loading = true;
+        flightsStatus.return.loading = true;
+        this.setState({flightsStatus});
 
         // First flight
         searchTicket(originStation, destinationStation, departureDate)
@@ -86,6 +105,16 @@ class Booking extends Component {
         }
     }
 
+    handleSelectDate = (momentDate, ticketType) => {
+        const {originStation, destinationStation} = this.props.match.params;
+        if (ticketType === 'originTicket') {
+            this.props.history.push(`/booking/select-flight/${originStation}/${destinationStation}/${momentDate.format('YYYY-MM-DD')}/${this.props.match.params.arrivalDate || ''}`);
+        }
+        else {
+            this.props.history.push(`/booking/select-flight/${originStation}/${destinationStation}/${this.props.match.params.departureDate}/${momentDate.format('YYYY-MM-DD')}`);
+        }
+    };
+
     render() {
         return (
             <div className="booking">
@@ -97,6 +126,7 @@ class Booking extends Component {
                                    isTicketActive={this.isTicketActive}
                                    selectFlightReturns={this.selectFlightReturns}
                                    flightsStatus={this.state.flightsStatus}
+                                   onSelectDate={this.handleSelectDate}
                                    {...this.props}/>
                 </div>
             </div>
