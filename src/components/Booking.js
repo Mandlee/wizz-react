@@ -53,6 +53,8 @@ class Booking extends Component {
     };
 
     componentDidMount() {
+        const {originStation, destinationStation} = this.props.match.params;
+        this.props.setStations(originStation, destinationStation);
         this.fetchData()
     }
 
