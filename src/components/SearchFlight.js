@@ -35,8 +35,9 @@ class SearchFlight extends React.Component {
         if (this.isValidForm()) {
             const departureStation = this.searchDepartureStation.current.value;
             const arrivalStation = this.searchArrivalStation.current.value;
-            console.log(departureStation);
-            this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}/${this.state.startDate.format('YYYY-MM-DD')}/${this.state.endDate ? this.state.endDate.format('YYYY-MM-DD') : null}`);
+            const startDate = this.state.startDate.format('YYYY-MM-DD');
+            const endDate = this.state.endDate ? this.state.endDate.format('YYYY-MM-DD') : null;
+            this.props.history.push(`/booking/select-flight/${departureStation}/${arrivalStation}/${startDate}/${endDate}`);
         }
     };
 
@@ -56,9 +57,7 @@ class SearchFlight extends React.Component {
 
     updateConnectedStations(originStationKey) {
         //search station connections
-        const originStation = this.state.stations.find((element) => {
-            return element.iata === originStationKey;
-        });
+        const originStation = this.state.stations.find(element => element.iata === originStationKey);
 
         if (originStation) {
             //copy connections
@@ -84,7 +83,7 @@ class SearchFlight extends React.Component {
                     origin: localStorageState.origin,
                     destination: localStorageState.destination,
                     startDate: localStorageState.startDate ? moment(localStorageState.startDate) : localStorageState.startDate,
-                    endDate: null//moment(JSON.parse(localStorageRef).endDate)
+                    endDate: localStorageState.endDate ? moment(localStorageState.endDate) : localStorageState.endDate
                 })
             }
         });
@@ -116,10 +115,8 @@ class SearchFlight extends React.Component {
     };
 
     getStationShortName(iata) {
-        const station = this.state.stations.find((element) => {
-            return element.iata === iata;
-        });
-        return station.shortName;
+        const {shortName} = this.state.stations.find(element => element.iata === iata);
+        return shortName;
     };
 
     isValidForm() {
@@ -163,7 +160,9 @@ class SearchFlight extends React.Component {
                             this.renderStationsOption(this.state.stations[key])
                         )}
                     </select>
+                    {this.state.errors['origin'] &&
                     <span style={{color: "red"}}>{this.state.errors['origin']}</span>
+                    }
                     <label htmlFor="destinationStation" className="search-flight__label">Destination</label>
                     <select id="originStation" className="search-flight__station-select" value={this.state.destination}
                             onChange={this.handleDestinationStationChange}
@@ -173,7 +172,9 @@ class SearchFlight extends React.Component {
                             this.renderConnectedStationsOption(this.state.connectedStations[key])
                         )}
                     </select>
+                    {this.state.errors['destination'] &&
                     <span style={{color: "red"}}>{this.state.errors['destination']}</span>
+                    }
                     <label htmlFor="originStation" className="search-flight__label">Date</label>
                     <div className="search-flight__select-date">
                         <DateRangePicker
@@ -185,7 +186,9 @@ class SearchFlight extends React.Component {
                             focusedInput={this.state.focusedInput} // PropTypes.oneOf([START_DATE, END_DATE]) or null,
                             onFocusChange={focusedInput => this.setState({focusedInput})} // PropTypes.func.isRequired,
                         />
+                        {this.state.errors['startDate'] &&
                         <span style={{color: "red"}}>{this.state.errors['startDate']}</span>
+                        }
                     </div>
                     <button type="submit" className="button button--primary button--medium">Search</button>
                 </form>
