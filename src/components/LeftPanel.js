@@ -1,6 +1,6 @@
 import React from 'react';
 import {priceEuro} from "../helper";
-import moment from "moment";
+import FlightInfo from "./FlightInfo";
 
 class LeftPanel extends React.Component {
 
@@ -8,7 +8,7 @@ class LeftPanel extends React.Component {
         let total = 0;
 
         Object.keys(this.props.tickets).map(key =>
-            total += this.props.tickets[key].price
+            total += this.props.tickets[key].fare.price
         );
 
         return total;
@@ -19,7 +19,7 @@ class LeftPanel extends React.Component {
         let total = 0;
 
         Object.keys(this.props.tickets).map(key =>
-            total += this.props.tickets[key].price - 10
+            total += this.props.tickets[key].fare.price - 10
         );
 
         return total;
@@ -56,32 +56,18 @@ class LeftPanel extends React.Component {
                     <div className="card--booking-flow__container">
                         <h3 className="card__title card__title--booking-flow">Bundle</h3>
                         {this.props.tickets.originTicket &&
-                        <div>
-                            <div className="booking-flow__flight-info flight-info">
-                            <span className="flight-info__date">
-                                <span className="flight-info__month"> {moment(departureDate).format('MMM')} </span>
-                                <span className="flight-info__day"> {moment(departureDate).format('DD')} </span>
-                            </span>
-                                <span className="flight-info__stations"> {originStation} - {destinationStation} </span>
-                                <span
-                                    className="flight-info__time">{this.props.tickets.originTicket.fareSellKey} </span>
-                            </div>
-                            <div className="booking-flow__title">
-                                {this.props.tickets.originTicket.bundle}
-                            </div>
-                            <div className="booking-flow__price">
-                                {priceEuro(this.props.tickets.originTicket.price)}
-                            </div>
-                        </div>
+                        <FlightInfo date={departureDate}
+                                    ticket={this.props.tickets.originTicket}
+                                    originStation={originStation}
+                                    destinationStation={destinationStation}/>
+
                         }
                         {this.props.tickets.returnTicket &&
-                        <div>
-                            <div className="booking-flow__title">
-                                {this.props.tickets.returnTicket.bundle}</div>
-                            <div className="booking-flow__price">
-                                {priceEuro(this.props.tickets.returnTicket.price)}
-                            </div>
-                        </div>
+                        <FlightInfo date={arrivalDate}
+                                    ticket={this.props.tickets.returnTicket}
+                                    originStation={destinationStation}
+                                    destinationStation={originStation}/>
+
                         }
                     </div>
                 </div>

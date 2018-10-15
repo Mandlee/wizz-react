@@ -29,9 +29,13 @@ class Booking extends Component {
         this.setState({flightsReturn})
     };
 
-    addTicket = (key, ticket) => {
+    addTicket = (key, flight, fareKey) => {
         const tickets = {...this.state.tickets};
-        tickets[key] = ticket;
+        tickets[key] = {
+            ...flight,
+            fare: flight.fares[fareKey]
+        };
+
         this.setState({tickets});
     };
 
@@ -40,7 +44,7 @@ class Booking extends Component {
         let isActive = false;
 
         for (let key in tickets) {
-            if (key === ticketTypeKey && tickets[key].fareSellKey === fareSellKey) {
+            if (key === ticketTypeKey && tickets[key].fare.fareSellKey === fareSellKey) {
                 isActive = true;
             }
         }

@@ -63,9 +63,9 @@ class BookingFlight extends React.Component {
         );
     };
 
-    handleClick(key, item) {
+    handleClick(key, flight, item) {
         console.log('handleClick', key, item);
-        this.props.addTicket(key, item)
+        this.props.addTicket(key, flight, item)
     }
 
     isOutsideRange(day) {

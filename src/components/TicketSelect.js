@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import moment from "moment/moment";
 import DateChart from "./DateChart";
 import {priceEuro} from "../helper";
+import NoFlights from "./NoFlights";
 
 class TicketSelect extends Component {
 
@@ -30,7 +31,7 @@ class TicketSelect extends Component {
                     return <div className="price-box" key={fareSellKey}>
                         <button
                             className={this.props.isTicketActive(this.props.ticketType, fareSellKey) ? `${buttonClassNames} button--price--active` : buttonClassNames}
-                            onClick={(e) => this.props.handleClick(this.props.ticketType, flight.fares[fareKey])}
+                            onClick={(e) => this.props.handleClick(this.props.ticketType, flight, fareKey)}
                         >{priceEuro(price)}</button>
                     </div>
                 })}
@@ -38,29 +39,23 @@ class TicketSelect extends Component {
         );
     };
 
-    render() {
-        const {originStation, destinationStation, date} = this.props;
+    renderTickets = () => {
+        // Status loading
+        if (this.props.status.loading) {
+            return (
+                <div className="booking-flight__title-container">Loading</div>
+            )
+        }
+
+        // Status - No flight
+        if (this.props.status.noFlights) {
+            return (
+                <NoFlights/>
+            )
+        }
 
         return (
             <React.Fragment>
-                <div className="booking-flight__title-container">
-                    <div className="booking-flight__title-container__title">Outbound</div>
-                    <address className="booking-flight__title-container__flight-route">
-                        <span className="booking-flight__station">({originStation})</span>
-                        <i className="icon icon__toright-arrow"/>
-                        <span className="booking-flight__station">({destinationStation})</span>
-                    </address>
-                </div>
-                <div className="booking-flight__select-date">
-                    <div><i
-                        className="icon icon__left-arrow"/>{moment(date).subtract(1, 'day').format(`ddd D MMM`)}
-                    </div>
-                    <div
-                        className="booking-flight__current_date">{moment(date).format(`dddd, D MMMM YYYY`)}</div>
-                    <div>{moment(date).add(1, 'day').format(`ddd D MMM`)}<i
-                        className="icon icon__right-arrow"/></div>
-                </div>
-                
                 <div className="price-box-container">
                     <div className="price-box"/>
                     <div className="price-box">Basic</div>
@@ -100,7 +95,35 @@ class TicketSelect extends Component {
                         </ul>
                     </div>
                 </div>
-                <DateChart selectedDate={date}/>
+                <DateChart selectedDate={this.props.date}/>
+            </React.Fragment>
+        )
+    };
+
+    render() {
+        const {originStation, destinationStation, date} = this.props;
+
+        return (
+            <React.Fragment>
+                <div className="booking-flight__title-container">
+                    <div className="booking-flight__title-container__title">Outbound</div>
+                    <address className="booking-flight__title-container__flight-route">
+                        <span className="booking-flight__station">({originStation})</span>
+                        <i className="icon icon__toright-arrow"/>
+                        <span className="booking-flight__station">({destinationStation})</span>
+                    </address>
+                </div>
+                <div className="booking-flight__select-date">
+                    <div><i
+                        className="icon icon__left-arrow"/>{moment(date).subtract(1, 'day').format(`ddd D MMM`)}
+                    </div>
+                    <div
+                        className="booking-flight__current_date">{moment(date).format(`dddd, D MMMM YYYY`)}</div>
+                    <div>{moment(date).add(1, 'day').format(`ddd D MMM`)}<i
+                        className="icon icon__right-arrow"/></div>
+                </div>
+                {this.renderTickets()}
+
             </React.Fragment>
         )
     }
