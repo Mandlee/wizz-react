@@ -11,7 +11,17 @@ class Booking extends Component {
         this.state = {
             flights: {},
             flightsReturn: {},
-            tickets: {}
+            tickets: {},
+            flightsStatus: {
+                origin: {
+                    loading: true,
+                    noFlights: false
+                },
+                return: {
+                    loading: true,
+                    noFlights: false
+                }
+            }
         };
     }
 
@@ -43,9 +53,35 @@ class Booking extends Component {
     };
 
     componentDidMount() {
-        const {originStation, destinationStation, departureDate} = this.props.match.params;
+        const {originStation, destinationStation, departureDate, arrivalDate} = this.props.match.params;
+
+        // First flight
         searchTicket(originStation, destinationStation, departureDate)
-            .then(flights => this.setState({flights}));
+            .then(flights => {
+                this.setState({flights});
+
+                let flightsStatus = {...this.state.flightsStatus};
+
+                flightsStatus.origin.loading = false;
+                flightsStatus.origin.noFlights = flights.length === 0;
+
+                this.setState({flightsStatus})
+            });
+
+        // Return flight
+        if (arrivalDate && arrivalDate !== 'null') {
+            searchTicket(destinationStation, originStation, arrivalDate)
+                .then(flightsReturn => {
+                    this.setState({flightsReturn});
+
+                    let flightsStatus = {...this.state.flightsStatus};
+
+                    flightsStatus.return.loading = false;
+                    flightsStatus.return.noFlights = flightsReturn.length === 0;
+
+                    this.setState({flightsStatus});
+                });
+        }
     }
 
     render() {
@@ -54,10 +90,11 @@ class Booking extends Component {
                 <div className="booking-container">
                     <LeftPanel tickets={this.state.tickets} {...this.props}/>
                     <BookingFlight flights={this.state.flights}
+                                   flightsReturns={this.state.flightsReturn}
                                    addTicket={this.addTicket}
                                    isTicketActive={this.isTicketActive}
                                    selectFlightReturns={this.selectFlightReturns}
-                                   getReturnFlights={this.getReturnFlights}
+                                   flightsStatus={this.state.flightsStatus}
                                    {...this.props}/>
                 </div>
             </div>

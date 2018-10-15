@@ -60,11 +60,13 @@ class SearchFlight extends React.Component {
             return element.iata === originStationKey;
         });
 
-        //copy connections
-        const connectedStations = {...originStation.connections};
+        if (originStation) {
+            //copy connections
+            const connectedStations = {...originStation.connections};
 
-        //set state
-        this.setState({connectedStations});
+            //set state
+            this.setState({connectedStations});
+        }
     }
 
     componentDidMount() {
@@ -81,7 +83,7 @@ class SearchFlight extends React.Component {
                 this.setState({
                     origin: localStorageState.origin,
                     destination: localStorageState.destination,
-                    startDate: moment(JSON.parse(localStorageRef).startDate),
+                    startDate: localStorageState.startDate ? moment(localStorageState.startDate) : localStorageState.startDate,
                     endDate: null//moment(JSON.parse(localStorageRef).endDate)
                 })
             }

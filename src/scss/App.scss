@@ -20,6 +20,10 @@ body {
   //background: #f0f0f0;
   background: #f0f0f0 url('../svgs/bg.svg') no-repeat;
   background-size: cover;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .booking-container {
