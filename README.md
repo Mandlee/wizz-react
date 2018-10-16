@@ -5,6 +5,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Below you will find some information on how to perform common tasks.<br>
 You can find the most recent version of this guide [here](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
+## Used libraries
+* [React](https://reactjs.org)
+* [Create React App](https://github.com/facebook/create-react-app)
+* [moment.js](https://momentjs.com/)
+* [react-dates](https://github.com/airbnb/react-dates)
+* [SCSS](https://sass-lang.com/) for style
 
 ## Install
 `npm install` or `yarn install`
