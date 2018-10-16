@@ -22,15 +22,30 @@ class BookingFlight extends React.Component {
     }
 
 
+    /**
+     * Handling select flight ticket
+     * @param key
+     * @param flight
+     * @param item
+     */
     handleClick(key, flight, item) {
         this.props.addTicket(key, flight, item)
     }
 
+    /**
+     * Check date is outside for react-dates component
+     * @param day
+     * @returns {boolean}
+     */
     isOutsideRange(day) {
         const firstReturnTicket = moment(this.props.match.params.departureDate).add(1, 'day');
         return !moment(day).isAfter(firstReturnTicket);
     }
 
+    /**
+     * Setting the Return flight date
+     * @param returnDate
+     */
     setReturnDate(returnDate) {
         if (!returnDate) {
             return

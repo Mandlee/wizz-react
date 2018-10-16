@@ -4,6 +4,10 @@ import FlightInfo from "./FlightInfo";
 
 class LeftPanel extends React.Component {
 
+    /**
+     * Calculate total ticket price
+     * @returns {number}
+     */
     getTotalPrice() {
         let total = 0;
 
@@ -14,11 +18,15 @@ class LeftPanel extends React.Component {
         return total;
     }
 
-    // getWizz
+    /**
+     * Calculate Wizz Club total price
+     * When ticket is bigger than 10, decrease the ticket price with 10 euro
+     * @returns {number}
+     */
     getWizzClubTotalPrice() {
         return Object.keys(this.props.tickets).reduce((acc, key) => {
             const {fare: {price}} = this.props.tickets[key];
-            if (price >= 11) {
+            if (price > 11) {
                 return acc + price - 10;
             }
             return acc;

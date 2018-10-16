@@ -82,6 +82,9 @@ class Booking extends Component {
         }
     }
 
+    /**
+     * Search tickets, origin and return flight, if available the return route
+     */
     fetchTickets() {
         const {originStation, destinationStation, departureDate, arrivalDate} = this.props.match.params;
 
@@ -121,6 +124,11 @@ class Booking extends Component {
         }
     }
 
+    /**
+     * Select another date, and push the state
+     * @param momentDate - date
+     * @param ticketType - origin or return ticket
+     */
     handleSelectDate = (momentDate, ticketType) => {
         const {originStation, destinationStation} = this.props.match.params;
         if (ticketType === 'originTicket') {

@@ -87,6 +87,9 @@ class SearchFlight extends React.Component {
                 })
             }
         });
+
+        //After back booking flight page, set apps state station null for header
+        this.props.setStations(null);
     }
 
     componentDidUpdate() {

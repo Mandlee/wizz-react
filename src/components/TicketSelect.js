@@ -6,6 +6,11 @@ import NoFlights from "./NoFlights";
 
 class TicketSelect extends Component {
 
+    /**
+     * Render Flight Date and price buttons
+     * @param key
+     * @returns {*}
+     */
     renderFlight = (key) => {
         const flight = this.props.flightTicket[key];
         let buttonClassNames = 'button button--medium button--price';
@@ -34,6 +39,11 @@ class TicketSelect extends Component {
         );
     };
 
+    /**
+     * Rendering Flight tickets container
+     * Show loading status and check has available flights
+     * @returns {*}
+     */
     renderTickets = () => {
         // Status loading
         if (this.props.status.loading) {

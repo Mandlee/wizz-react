@@ -18,6 +18,13 @@ class App extends Component {
         }
     }
 
+    /**
+     * Set actual stations for header component
+     * @param originStation
+     * @param destinationStation
+     * @param originStationFullName
+     * @param destinationStationFullName
+     */
     setStations = (originStation, destinationStation, originStationFullName, destinationStationFullName) => {
         this.setState({originStation, destinationStation, originStationFullName, destinationStationFullName})
     };
@@ -28,7 +35,7 @@ class App extends Component {
                 <div className="App">
                     <Header {...this.state}/>
                     <Switch>
-                        <Route exact path="/" component={SearchFlight}/>
+                        <Route exact path="/" render={(props) => <SearchFlight setStations={this.setStations} {...props} />}/>
                         <Route
                             path="/booking/select-flight/:originStation/:destinationStation/:departureDate/:arrivalDate?"
                             render={(props) => <Booking setStations={this.setStations} {...props} />}/>

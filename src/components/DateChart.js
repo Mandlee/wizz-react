@@ -27,7 +27,7 @@ class DateChart extends React.Component {
     };
 
     shouldComponentUpdate() {
-        //rendering once
+        //rendering just once
         return false;
     }
 
