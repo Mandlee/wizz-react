@@ -1,16 +1,18 @@
 @import "variables";
-@import "header";
-@import "card";
-@import "buttons";
-@import "inputs";
-@import "datepicker";
-@import "icons";
-@import "booking-flight";
-@import "search-flight";
-@import "flight-info";
-@import "date-chart";
-@import "sold-out";
-@import "discount-club-promo";
+//Components
+@import "components/header";
+@import "components/discount-club-promo";
+@import "components/booking-flight";
+@import "components/search-flight";
+@import "components/flight-info";
+@import "components/date-chart";
+@import "components/sold-out";
+@import "components/price-box";
+//Elements
+@import "elements/buttons";
+@import "elements/card";
+@import "elements/icons";
+@import "elements/datepicker";
 //https://fonts.google.com/specimen/Source+Sans+Pro?selection.family=Source+Sans+Pro
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
@@ -29,67 +31,4 @@ body {
 .booking-container {
   display: flex;
   width: 100%;
-}
-
-//TODO
-.search-flight .card {
-  margin: 0 auto;
-  width: 400px;
-  display: flex;
-  flex-direction: column;
-
-}
-
-//
-//.left-panel {
-//  width: 200px;
-//}
-//
-//.booking-flight {
-//  flex: 1;
-//}
-
-.left-panel {
-  flex: 0 0 277px;
-  margin: 70px 14px 0 28px;
-}
-
-.booking-flight {
-  flex: 1;
-  margin: 0 28px 0 14px;
-}
-
-//Booking price box
-.price-box-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border-bottom: 1px solid $light_grey;
-
-  .price-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-
-    &:nth-child(3) {
-      background: $light_grey;
-    }
-
-    &--list-container {
-      align-items: flex-start;
-      justify-content: flex-start;
-      flex-direction: column;
-    }
-  }
-}
-
-//Left Panel
-.booking-flow__title {
-  display: inline-block;
-  text-transform: capitalize;
-}
-
-.booking-flow__price {
-  float: right;
-  color: $dark_blue;
 }

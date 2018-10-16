@@ -1,0 +1,15 @@
+//Left Panel
+.left-panel {
+  flex: 0 0 277px;
+  margin: 70px 14px 0 28px;
+}
+
+.booking-flow__title {
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.booking-flow__price {
+  float: right;
+  color: $dark_blue;
+}
