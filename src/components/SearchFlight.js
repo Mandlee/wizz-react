@@ -31,6 +31,11 @@ class SearchFlight extends React.Component {
     searchDepartureStation = React.createRef();
     searchArrivalStation = React.createRef();
 
+
+    /**
+     * Go to booking, when form is valid
+     * @param event
+     */
     searchFlight = (event) => {
         event.preventDefault();
 
@@ -43,6 +48,10 @@ class SearchFlight extends React.Component {
         }
     };
 
+    /**
+     * Handle Oirgin station change, and update connected statinos and state
+     * @param event
+     */
     handleOriginStationChange(event) {
         console.log(event.target.value);
         const origin = event.target.value;
@@ -53,10 +62,18 @@ class SearchFlight extends React.Component {
         this.setState({origin});
     }
 
+    /**
+     * Handle destination station change
+     * @param event
+     */
     handleDestinationStationChange(event) {
         this.setState({destination: event.target.value});
     }
 
+    /**
+     * Update connection stations
+     * @param originStationKey
+     */
     updateConnectedStations(originStationKey) {
         //search station connections
         const originStation = this.state.stations.find(element => element.iata === originStationKey);
@@ -111,23 +128,41 @@ class SearchFlight extends React.Component {
         );
     }
 
+    /**
+     * Render origin stations option
+     * @param item
+     * @returns {*}
+     */
     renderStationsOption = (item) => {
         return (
             <option value={item.iata} key={item.iata}>{item.shortName}</option>
         );
     };
 
+    /**
+     * Render connected stations option
+     * @param item
+     * @returns {*}
+     */
     renderConnectedStationsOption = (item) => {
         return (
             <option value={item.iata} key={item.iata}>{this.getStationShortName(item.iata)}</option>
         );
     };
 
+    /**
+     * Get station short name
+     * @param iata
+     */
     getStationShortName(iata) {
         const {shortName} = this.state.stations.find(element => element.iata === iata);
         return shortName;
     };
 
+    /**
+     * Validating form
+     * @returns {boolean}
+     */
     isValidForm() {
         let errors = {};
         let isValidForm = true;
