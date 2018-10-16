@@ -13,7 +13,7 @@
 
 // Will edit everything selected including everything between a range of dates
 .CalendarDay__selected_span {
-  background: #fff0f9; //background
+  background: $lightest_pink; //background
   color: $pink; //text
   border: 1px solid $dark_grey; //default styles include a border
 }

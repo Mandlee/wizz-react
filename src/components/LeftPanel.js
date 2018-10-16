@@ -46,7 +46,7 @@ class LeftPanel extends React.Component {
                                 Checked-in bags
                             </div>
                             <div className="booking-flow__price">
-                                €89
+                                €0
                             </div>
                         </div>
                         <div>
@@ -55,7 +55,7 @@ class LeftPanel extends React.Component {
                             </div>
 
                             <div className="booking-flow__price">
-                                €89
+                                €0
                             </div>
                         </div>
                     </div>
@@ -91,7 +91,7 @@ class LeftPanel extends React.Component {
                                 Priority Boarding
                             </div>
                             <div className="booking-flow__price">
-                                €15
+                                €0
                             </div>
                         </div>
                     </div>

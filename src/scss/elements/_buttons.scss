@@ -16,11 +16,19 @@
   &--secondary {
     border: 2px solid $pink;
     color: $pink;
+
+    &:hover {
+      background-color: $lightest_pink;
+    }
   }
 
   &--dark {
     background-color: $dark_blue;
     color: $light_text;
+
+    &:hover {
+      background-color: $light_blue;
+    }
   }
 
   &--link {
@@ -28,9 +36,17 @@
     text-decoration: underline;
     border: 0;
 
-    &--inactive{
+    &:hover {
+      color: $light_pink;
+    }
+
+    &--inactive {
       color: $dark_text;
       text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 

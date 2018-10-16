@@ -37,7 +37,7 @@ class DateChart extends React.Component {
             }
 
 
-            divs.push(<div className={divClassName} key={i}>
+            divs.push(<div className={divClassName} key={i} onClick={()=> this.props.onSelectDate(moment(startDate).add(i, 'day'), this.props.ticketType)}>
                 <span>{moment(startDate).add(i, 'day').format(`ddd D`)}</span>
                 <div className="more-dates__price-indicator">
                     {indicator}

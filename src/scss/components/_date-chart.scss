@@ -10,7 +10,7 @@
 
   &__date-bars {
     display: flex;
-    max-width: calc(100vw - 417px);
+    max-width: calc(100vw - 461px);
     overflow-x: scroll;
   }
 
@@ -68,6 +68,15 @@
     height: 80px;
     width: 50px;
     display: inline-block;
+    transition: all 225ms ease;
+    cursor: pointer;
+
+    &:hover{
+      border: 1.5px solid $light_pink;
+      #{ $self }__price-indicator__bar {
+        background: $light_pink;
+      }
+    }
 
     &--selected {
       border: 1.5px solid $pink;

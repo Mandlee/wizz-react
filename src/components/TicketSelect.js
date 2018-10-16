@@ -103,7 +103,7 @@ class TicketSelect extends Component {
                         </ul>
                     </div>
                 </div>
-                <DateChart selectedDate={this.props.date}/>
+                <DateChart selectedDate={this.props.date} onSelectDate={this.props.onSelectDate} ticketType={this.props.ticketType}/>
             </React.Fragment>
         )
     };
