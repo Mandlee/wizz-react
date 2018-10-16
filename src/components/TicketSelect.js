@@ -114,7 +114,7 @@ class TicketSelect extends Component {
         return (
             <React.Fragment>
                 <div className="booking-flight__title-container">
-                    <div className="booking-flight__title-container__title">Outbound</div>
+                    <div className="booking-flight__title-container__title">{this.props.title}</div>
                     <address className="booking-flight__title-container__flight-route">
                         <span className="booking-flight__station">{fullNameOrigStation}({originStation})</span>
                         <i className="icon icon__toright-arrow"/>

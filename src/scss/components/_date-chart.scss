@@ -81,12 +81,10 @@
     &--selected {
       border: 1.5px solid $pink;
 
-      //TODO
       #{ $self }__price-indicator__bar {
         background: $pink;
       }
 
-      //TODO
       span {
         color: $pink;
       }

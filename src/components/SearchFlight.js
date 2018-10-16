@@ -53,7 +53,6 @@ class SearchFlight extends React.Component {
      * @param event
      */
     handleOriginStationChange(event) {
-        console.log(event.target.value);
         const origin = event.target.value;
 
         this.updateConnectedStations(origin);

@@ -54,7 +54,6 @@ class BookingFlight extends React.Component {
         this.props.history.push(returnDate.format('YYYY-MM-DD'));
         searchTicket(this.props.match.params.destinationStation, this.props.match.params.originStation, returnDate.format('YYYY-MM-DD'))
             .then((data) => {
-                console.log(data);
                 this.props.selectFlightReturns(data)
             })
     }
@@ -76,6 +75,7 @@ class BookingFlight extends React.Component {
                                   destinationStation={this.props.match.params.destinationStation}
                                   date={this.props.match.params.departureDate}
                                   ticketType='originTicket'
+                                  title="Outbound"
                                   handleClick={this.handleClick}
                                   status={this.props.flightsStatus.origin}
                                   isTicketActive={this.props.isTicketActive}
@@ -95,6 +95,7 @@ class BookingFlight extends React.Component {
                                       destinationStation={this.props.match.params.originStation}
                                       date={this.props.match.params.arrivalDate}
                                       ticketType='returnTicket'
+                                      title="Return"
                                       handleClick={this.handleClick}
                                       status={this.props.flightsStatus.return}
                                       isTicketActive={this.props.isTicketActive}
