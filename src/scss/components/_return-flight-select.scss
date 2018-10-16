@@ -1,0 +1,15 @@
+.return-flight-select {
+  display: flex;
+  align-items: center;
+
+  &__title {
+    font-weight: 800;
+    flex: 1;
+    text-align: right;
+    padding: 20px;
+  }
+  .SingleDatePicker {
+    flex: 1;
+    padding: 20px;
+  }
+}

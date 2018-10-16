@@ -3,6 +3,7 @@ import moment from "moment/moment";
 import DateChart from "./DateChart";
 import {priceEuro} from "../helper";
 import NoFlights from "./NoFlights";
+import Loading from "./Loading";
 
 class TicketSelect extends Component {
 
@@ -48,7 +49,9 @@ class TicketSelect extends Component {
         // Status loading
         if (this.props.status.loading) {
             return (
-                <div className="booking-flight__title-container">Loading</div>
+                <div className="booking-flight__title-container">
+                    <Loading/>
+                </div>
             )
         }
 

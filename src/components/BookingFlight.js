@@ -103,8 +103,8 @@ class BookingFlight extends React.Component {
                                       fullNameDestStation={this.props.fullNameOrigStation}
                         />
                     ) : (
-                        <div>
-                            ADD RETURN FLIGHT
+                        <div className="return-flight-select">
+                            <span className="return-flight-select__title">ADD RETURN FLIGHT</span>
                             <SingleDatePicker
                                 date={this.state.returnDate} // momentPropTypes.momentObj or null
                                 onDateChange={date => this.setReturnDate(date)} // PropTypes.func.isRequired
