@@ -34,11 +34,17 @@ class DateChart extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div className="more-dates__header">More dates</div>
+                <div className="more-dates__header">
+                    <span className="more-dates__header__title">More dates</span>
+                    <div className="more-dates__header__btn-container">
+                        <button className="button button--link button--small discount-club-promo__cta">Calendar</button>
+                        <button className="button button--link button--link--inactive button--small discount-club-promo__cta">Chart</button>
+                    </div>
+                </div>
                 <div className="more-dates">
-                    <div className="more-dates__control-icon-left"><i className="icon icon__left-arrow"/></div>
+                    <div className="more-dates__control-icon"><i className="icon icon__left-arrow"/></div>
                     <div className="more-dates__date-bars">{this.renderCharts(this.props.selectedDate)}</div>
-                    <div className="more-dates__control-icon-right"><i className="icon icon__right-arrow"/></div>
+                    <div className="more-dates__control-icon"><i className="icon icon__right-arrow"/></div>
                 </div>
             </React.Fragment>
         )

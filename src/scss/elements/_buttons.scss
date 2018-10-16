@@ -27,6 +27,11 @@
     color: $pink;
     text-decoration: underline;
     border: 0;
+
+    &--inactive{
+      color: $dark_text;
+      text-decoration: none;
+    }
   }
 
   &--medium {
@@ -35,6 +40,13 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+
+  &--small {
+    padding: 10px;
+    font-size: 12px;
+    text-transform: uppercase;
     font-weight: 600;
   }
 

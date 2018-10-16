@@ -4,18 +4,38 @@
   flex-wrap: nowrap;
   justify-content: space-between;
 
-  padding: 20px 0;
+  padding: 20px 22px;
   background: $light_grey;
 
-  .more-dates__date-bars {
+  &__date-bars {
     display: flex;
     max-width: calc(100vw - 417px);
     overflow-x: scroll;
   }
 
+  &__control-icon{
+    display: flex;
+    align-items: center;
+  }
+
   &__header {
     position: relative;
     background: $light_text;
+    display: flex;
+    align-items: center;
+    padding: 10px 22px;
+
+    &__title {
+      flex: 1;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    &__btn-container {
+      flex: 1;
+      text-align: right;
+    }
 
     //Bottom Arrow
     &:after {
